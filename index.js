@@ -43,8 +43,8 @@ app.post('/songs', (req, res) => {
 })
 
 // Widgets
-app.get('/widgets', (req, res) => {
-    res.send(widgets)
+app.get('/widgets', async (req, res) => {
+    res.send(widgetsCache)
 })
 
 app.get('/widgets/:id', (req, res) => {

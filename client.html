@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rest API klient</title>
+
+</head>
+<body>
+    <div id="widgets">
+
+    </div>
+</body>
+    <script>
+        let widgetsCache;
+        if (widgetsCache = typeof localStorage.getItem("widgetsCache") !== "undefined") {
+        widgetsCache = JSON.parse(localStorage.getItem("widgetsCache"));
+    } else {
+        widgetsCache = await (await fetch("http://lcalhost:8080/widgets")).json();
+    }
+    localStorage.setItem("widgetsCache", JSON.stringify(widgetsCache));
+    let resultHtml = "<div>";
+    widgetsCache.forEach(element => {
+        resultHtml += `Name: ${element.name}, Price: ${element.price}<br>`
+    });
+    resultHtml += "</div>"
+        document.getElementById("widgets").innerHTML = resultHtml;
+    </script>
+</html>
